@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"image/color"
+	"strconv"
+	"strings"
 
 	packer "github.com/InfinityTools/go-binpack2d"
 	"github.com/fogleman/gg"
@@ -38,16 +40,44 @@ func main() {
 
 	dc := gg.NewContext(W, H)
 
-	// Set up background gradient
-	// TODO need to figure out how to move this to config
-	//      Maybe allow solid colors and image backgrounds?
-	grad := gg.NewLinearGradient(0, 200, 0, float64(H))
-	grad.AddColorStop(0, color.RGBA{0, 0, 50, 255})
-	grad.AddColorStop(1, color.RGBA{0, 0, 0, 255})
-	dc.SetFillStyle(grad)
-	dc.DrawRectangle(0, 0, float64(W), float64(H))
-	dc.Fill()
+	// Draw background
 
+	// Image
+	if viper.GetString("background.image") != "" { // Pattern
+		im, err := gg.LoadImage(viper.GetString("background.image"))
+		if err != nil {
+			panic(err)
+		}
+		dc.DrawImage(im, 0, 0)
+	}
+
+	// Solid color
+	if colorStr := viper.GetString("background.solid"); colorStr != "" { // Solid
+		bgColor := colorFromString(colorStr)
+		dc.SetFillStyle(gg.NewSolidPattern(bgColor))
+		dc.DrawRectangle(0, 0, float64(W), float64(H))
+		dc.Fill()
+	}
+
+	// Gradient
+	if viper.GetString("background.gradient.x0") != "" { // Gradient
+		grad := gg.NewLinearGradient(
+			viper.GetFloat64("background.gradient.x0"),
+			viper.GetFloat64("background.gradient.y0"),
+			viper.GetFloat64("background.gradient.x1"),
+			viper.GetFloat64("background.gradient.y1"),
+		)
+		// Load start color.
+		startColor := colorFromString(viper.GetString("background.gradient.start_color"))
+		grad.AddColorStop(0, startColor)
+		// Load start color.
+		endColor := colorFromString(viper.GetString("background.gradient.end_color"))
+		grad.AddColorStop(1, endColor)
+
+		dc.SetFillStyle(grad)
+		dc.DrawRectangle(0, 0, float64(W), float64(H))
+		dc.Fill()
+	}
 	// Load frames
 	frameConfigs := viper.GetStringMapStringSlice("frames")
 	frames := make([]internal.Frame, 0, len(frameConfigs))
@@ -73,4 +103,26 @@ func main() {
 	filename := fmt.Sprintf("output.png")
 	dc.SavePNG(filename)
 	fmt.Println(filename)
+}
+
+func colorFromString(s string) color.Color {
+	colorParts := strings.Split(s, ",")
+	if len(colorParts) != 4 {
+		panic("Invalid color format. Must be RGBA csv with valse 0-255")
+	}
+	o := make([]uint8, 4)
+	for i, part := range colorParts {
+		v, err := strconv.ParseUint(part, 10, 8)
+		if err != nil {
+			panic(fmt.Errorf("Invalid color format. Must be RGBA csv with valse 0-255: %w", err))
+		}
+		o[i] = uint8(v)
+	}
+
+	return color.RGBA{
+		o[0],
+		o[1],
+		o[2],
+		o[3],
+	}
 }

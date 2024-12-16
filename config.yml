@@ -1,6 +1,16 @@
 font_path: "MesloLGLDZNerdFont-Bold.ttf"
 width: 1536
 height: 960
+background:
+  image: ""
+  # solid: "0,255,0,40"
+  gradient:
+    x0: 0 
+    y0: 200
+    x1: 0
+    y1: 960
+    start_color: "0,0,50,255"
+    end_color: "0,0,0,255"
 layout:
   frame_padding_x: 50
   frame_padding_y: 20
