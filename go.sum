@@ -1,3 +1,5 @@
+github.com/InfinityTools/go-binpack2d v1.0.0 h1:l15wC3zDlR0FoffIcPze0qbszshmGCpMncDiAxpWnE8=
+github.com/InfinityTools/go-binpack2d v1.0.0/go.mod h1:3hwEmVO6ffChGwW55BVr9k4rzSYGow0OH2B8bjEdO6o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fogleman/gg v1.3.0 h1:/7zJX8F6AaYQc57WQCyN9cAIz+4bCJGO9B+dyW29am8=

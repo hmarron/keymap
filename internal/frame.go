@@ -13,24 +13,25 @@ type FrameStyle struct {
 	TitlePadding     float64
 	ContentPadding   float64
 	FontPath         string
+	FramePaddingX    float64
+	FramePaddingY    float64
 }
 
 type Frame struct {
-	PositionX float64
-	PositionY float64
-	Title     string
-	Contents  []string
-	Style     FrameStyle
+	Title    string
+	Contents []string
+	Style    FrameStyle
 }
 
-func (f *Frame) GetCalculatedDimensions(dc *gg.Context) (float64, float64) {
+// getCalculatedDimensions returns dimensions not including padding.
+func (f *Frame) getCalculatedDimensions(dc *gg.Context) (float64, float64) {
 	// Get title height.
 	dc.LoadFontFace(f.Style.FontPath, f.Style.TitleFontSize)
 	_, titleH := dc.MeasureString(f.Title)
 
 	dc.LoadFontFace(f.Style.FontPath, f.Style.ContentFontSize)
 	var W, H float64
-	currentDrawY := f.PositionY + f.Style.FrameStrokeWidth + f.Style.TitlePadding + titleH
+	currentDrawY := f.Style.FrameStrokeWidth + f.Style.TitlePadding + titleH
 	for _, content := range f.Contents {
 		w, h := dc.MeasureString(content)
 		H += h + f.Style.ContentPadding
@@ -44,7 +45,30 @@ func (f *Frame) GetCalculatedDimensions(dc *gg.Context) (float64, float64) {
 	return W + (f.Style.ContentPadding * 2), H + f.Style.ContentPadding + f.Style.TitlePadding + titleH
 }
 
-func (f *Frame) Draw(dc *gg.Context) {
+// GetCalculatedDimensions returns dimensions including padding.
+func (f *Frame) GetCalculatedDimensions(dc *gg.Context) (float64, float64) {
+	w, h := f.getCalculatedDimensions(dc)
+	return (w + (f.Style.FramePaddingX * 2)),
+		(h + (f.Style.FramePaddingY * 2))
+}
+
+func (f *Frame) DebugDraw(dc *gg.Context, x, y float64) {
+	// Draw standard
+	f.Draw(dc, x, y)
+
+	// Draw bounding rect including padding.
+	w, h := f.getCalculatedDimensions(dc)
+	dc.DrawRectangle(
+		x,
+		y,
+		w+(f.Style.FramePaddingX*2),
+		h+(f.Style.FramePaddingY*2),
+	)
+	dc.SetColor(color.RGBA{255, 0, 0, 255})
+	dc.Stroke()
+}
+
+func (f *Frame) Draw(dc *gg.Context, x, y float64) {
 	// Set default styles
 	dc.SetColor(color.White)
 	dc.SetLineWidth(f.Style.FrameStrokeWidth)
@@ -52,29 +76,49 @@ func (f *Frame) Draw(dc *gg.Context) {
 	// Draw the title
 	dc.LoadFontFace(f.Style.FontPath, f.Style.TitleFontSize)
 	_, titleH := dc.MeasureString(f.Title)
-	dc.DrawString(f.Title, f.PositionX, f.PositionY+titleH)
+	dc.DrawString(
+		f.Title,
+		x+f.Style.FramePaddingX,
+		y+titleH+f.Style.FramePaddingY,
+	)
 
 	// Draw the content and find the rectangle size.
 	dc.LoadFontFace(f.Style.FontPath, f.Style.ContentFontSize)
-	var W, H float64
-	currentDrawY := f.PositionY + f.Style.FrameStrokeWidth + f.Style.TitlePadding + titleH
+
+	// Thes vars track the max heigh and widht of all content.
+	// used to draw the box around it later.
+	var contentW, contentH float64
+	// Start drawing just under the title.
+	currentDrawY := y + f.Style.FrameStrokeWidth + f.Style.TitlePadding + titleH + f.Style.FramePaddingY
 	for _, content := range f.Contents {
-		w, h := dc.MeasureString(content)
-		H += h + f.Style.ContentPadding
-		if w > W {
-			W = w
+		lineW, lineH := dc.MeasureString(content)
+
+		// Always update contentH to add the height of this line.
+		contentH += lineH + f.Style.ContentPadding
+
+		// If this is now the new longest line, updated contentW.
+		if lineW > contentW {
+			contentW = lineW
 		}
-		currentDrawY += h
+
+		// Move the next line.
+		currentDrawY += lineH
 		currentDrawY += f.Style.ContentPadding
-		dc.DrawString(content, f.PositionX+f.Style.ContentPadding, currentDrawY)
+
+		// Draw the line.
+		dc.DrawString(
+			content,
+			x+f.Style.ContentPadding+f.Style.FramePaddingX,
+			currentDrawY,
+		)
 	}
 
 	// Draw the rectangle.
 	dc.DrawRectangle(
-		f.PositionX,
-		f.PositionY+f.Style.TitlePadding+titleH,
-		W+(f.Style.ContentPadding*2),
-		H+f.Style.ContentPadding,
+		x+f.Style.FramePaddingX,
+		y+f.Style.TitlePadding+titleH+f.Style.FramePaddingY,
+		contentW+(f.Style.ContentPadding*2),
+		contentH+f.Style.ContentPadding,
 	)
 	dc.Stroke()
 }

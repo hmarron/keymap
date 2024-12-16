@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"image/color"
-	"time"
 
+	packer "github.com/InfinityTools/go-binpack2d"
 	"github.com/fogleman/gg"
 	"github.com/hmarron/keymap/internal"
 	"github.com/spf13/viper"
@@ -32,6 +32,8 @@ func main() {
 		TitlePadding:     viper.GetFloat64("frame_style.title_padding"),
 		ContentPadding:   viper.GetFloat64("frame_style.content_padding"),
 		FontPath:         viper.GetString("font_path"),
+		FramePaddingX:    viper.GetFloat64("layout.frame_padding_x"),
+		FramePaddingY:    viper.GetFloat64("layout.frame_padding_y"),
 	}
 
 	dc := gg.NewContext(W, H)
@@ -47,48 +49,28 @@ func main() {
 	dc.Fill()
 
 	// Load frames
-	framePaddingX := viper.GetFloat64("layout.frame_padding_x")
-	framePaddingY := viper.GetFloat64("layout.frame_padding_x")
-	frameCols := viper.GetInt("layout.cols")
-	frameX := framePaddingX
-	frameY := framePaddingY
-
-	// TODO need to figure out the total size including padding
-	// and then find some algo to better arrange these
-	// maybe  something like a grid layout
-	// that goes a row at a time
-	// each cell uses the above cell to figure out it's Y position
-	// each cell uses the left cell to figure out it's X position
-	// if the new cell is going to go off the page, then start a new row
-
 	frameConfigs := viper.GetStringMapStringSlice("frames")
-	count := 1
+	frames := make([]internal.Frame, 0, len(frameConfigs))
+	p := packer.Create(W, H)
 	for title, config := range frameConfigs {
 		frame := internal.Frame{
-			PositionX: frameX,
-			PositionY: frameY,
-			Title:     title,
-			Style:     frameStyle,
-			Contents:  config,
+			Title:    title,
+			Style:    frameStyle,
+			Contents: config,
 		}
-		fW, fH := frame.GetCalculatedDimensions(dc)
+		frames = append(frames, frame)
 
-		// TODO maybe have some auto mode where it only moves to next line if
-		//  it's going to go off the canvas-framepadding
-		//  might need to sort them or have some way of getting the next frame for that...
-		if count%frameCols == 0 {
-			frameX = framePaddingX
-			// TODO this should use the biggest fH of the current row
-			frameY += fH + framePaddingY
-		} else {
-			frameX += fW + framePaddingX
+		w, h := frame.GetCalculatedDimensions(dc)
+		rect, ok := p.Insert(int(w), int(h), packer.RULE_BEST_LONG_SIDE_FIT)
+		if !ok {
+			panic("Failed to pack")
 		}
-		count++
-		frame.Draw(dc)
+		frame.Draw(dc, float64(rect.X), float64(rect.Y))
 	}
 
 	// Save the file
-	filename := fmt.Sprintf("%s.png", time.Now().Format("2006-01-02_15-04-05"))
+	// filename := fmt.Sprintf("%s.png", time.Now().Format("2006-01-02_15-04-05"))
+	filename := fmt.Sprintf("output.png")
 	dc.SavePNG(filename)
 	fmt.Println(filename)
 }

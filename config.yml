@@ -2,9 +2,8 @@ font_path: "MesloLGLDZNerdFont-Bold.ttf"
 width: 1536
 height: 960
 layout:
-  frame_padding_x: 100
-  frame_padding_y: 200
-  cols: 4
+  frame_padding_x: 50
+  frame_padding_y: 20
 frame_style:
   stroke: 1.0
   title_font-size: 32.0
@@ -12,13 +11,16 @@ frame_style:
   title_padding: 10.0
   content_padding: 10.0
 frames:
-  Vim:
+  Vim0:
     - vim 1 dog
     - here's another one 
     - one more for good measure
     - one more for good measure
     - one more for good measure
     - one more for good measure
+  Vim 1:
+    - vim 1 dog
+    - here's another one 
     - one more for good measure
     - one more for good measure
     - one more for good measure
@@ -27,31 +29,38 @@ frames:
     - vim 1 dog
     - here's another one 
     - one more for good measure
-  Vim 3:
+    - one more for good measure
+    - one more for good measure
+    - one more for good measure
+  Vim3:
     - vim 1 dog
     - here's another one 
     - one more for good measure
-  Vim 4:
-    - vim 1 dog
-    - vim 1 dog
-    - vim 1 dog
-    - vim 1 dog
-    - vim 1 dog
-    - vim 1 dog
-    - vim 1 dog
-    - vim 1 dog
+    - one more for good measure
+    - one more for good measure
+    - one more for good measure
+    - one more for good measure
+    - one more for good measure
+    - one more for good measure
+    - one more for good measure
+  Vim6:
     - vim 1 dog
     - here's another one 
     - one more for good measure
-  Vim 5:
+    - one more for good measure
+    - one more for good measure
+    - aaaaaaaaaaaaaaaone more for good measureone more for good measure
+  Vim5:
     - vim 1 dog
     - here's another one 
     - one more for good measure
-  Vim 6:
+    - one more for good measure
+    - one more for good measure
+    - one more for good measure
+  Vim4:
     - vim 1 dog
     - here's another one 
     - one more for good measure
-  Vim 7:
-    - vim 1 dog
-    - here's another one 
+    - one more for good measure
+    - one more for good measure
     - one more for good measure
