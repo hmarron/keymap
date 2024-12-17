@@ -1,7 +1,9 @@
 package internal
 
 import (
+	"fmt"
 	"image/color"
+	"strings"
 
 	"github.com/fogleman/gg"
 )
@@ -25,6 +27,8 @@ type Frame struct {
 
 // getCalculatedDimensions returns dimensions not including padding.
 func (f *Frame) getCalculatedDimensions(dc *gg.Context) (float64, float64) {
+	f.normalizeContent()
+
 	// Get title height.
 	dc.LoadFontFace(f.Style.FontPath, f.Style.TitleFontSize)
 	_, titleH := dc.MeasureString(f.Title)
@@ -121,4 +125,31 @@ func (f *Frame) Draw(dc *gg.Context, x, y float64) {
 		contentH+f.Style.ContentPadding,
 	)
 	dc.Stroke()
+}
+
+func (f *Frame) normalizeContent() {
+	maxKeyLength := 0
+	// Get the longest key length.
+	for _, content := range f.Contents {
+		if strings.Contains(content, ":") {
+			key := strings.SplitN(content, ":", 2)[0]
+			if len(key) > maxKeyLength {
+				maxKeyLength = len(key)
+			}
+		}
+	}
+	// Go over all lines and make sure that the first : is in the same col for every line.
+	// Normalize the content by padding keys with spaces.
+	for i, content := range f.Contents {
+		if strings.Contains(content, ":") {
+			parts := strings.SplitN(content, ":", 2)
+			if len(parts) == 2 {
+				key := parts[0]
+				value := parts[1]
+				paddedKey := fmt.Sprintf("%-*s", maxKeyLength+1, key)
+				f.Contents[i] = paddedKey + ":" + value
+			}
+		}
+	}
+
 }
