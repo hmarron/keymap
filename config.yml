@@ -1,76 +1,221 @@
-font_path: "MesloLGLDZNerdFont-Bold.ttf"
-width: 1536
-height: 960
 background:
-  image: ""
-  # solid: "0,255,0,40"
   gradient:
-    x0: 0 
-    y0: 200
+    end_color: 0,0,0,255
+    start_color: 0,0,50,255
+    x0: 0
     x1: 0
+    y0: 200
     y1: 960
-    start_color: "0,0,50,255"
-    end_color: "0,0,0,255"
+  image: ""
+font_path: MesloLGLDZNerdFont-Bold.ttf
+frame_style:
+  content_font-size: 19 
+  content_padding: 10
+  stroke: 1
+  title_font-size: 32
+  title_padding: 10
+frames:
+  Nvim:
+  - 'x #: :help v_#-default'
+  - 'x gS: Add a surrounding pair around a visual selection, on new lines'
+  - 'n ys: Add a surrounding pair around a motion (normal mode)'
+  - 'x S: Add a surrounding pair around a visual selection'
+  - 'n gx: Opens filepath or URI under cursor with the system handler (file explorer,
+    web browser, …)'
+  - 'n <C-W>d: Show diagnostics under the cursor'
+  - 'x @: :help v_@-default'
+  - 'n <Space>lg: Local live grep'
+  - 'n <Space>fg: Telescope live grep'
+  - 'n cs: Change a surrounding pair'
+  - 'x gc: Toggle comment'
+  - 'n gc: Toggle comment'
+  - 'n yss: Add a surrounding pair around the current line (normal mode)'
+  - 'n <C-L>: :help CTRL-L-default'
+  - 'n <Space>ff: Telescope find files'
+  - 'x *: :help v_star-default'
+  - 'n [d: Jump to the previous diagnostic'
+  - 'o gc: Comment textobject'
+  - 'n gcc: Toggle comment line'
+  - 'x gx: Opens filepath or URI under cursor with the system handler (file explorer,
+    web browser, …)'
+  - 'n <C-W><C-D>: Show diagnostics under the cursor'
+  - 'x Q: :help v_Q-default'
+  - 'n Y: :help Y-default'
+  - 'n cS: Change a surrounding pair, putting replacements on new lines'
+  - 'n ySS: Add a surrounding pair around the current line, on new lines (normal mode)'
+  - 'n yS: Add a surrounding pair around a motion, on new lines (normal mode)'
+  - 'n <Space>fgg: Telescope finds files in git'
+  - 'n &: :help &-default'
+  - 'n ]d: Jump to the next diagnostic'
+  - 'n ds: Delete a surrounding pair'
+  aerospace-main:
+  - 'alt-w: workspace W'
+  - 'alt-4: workspace 4'
+  - 'alt-shift-u: move-node-to-workspace U'
+  - 'alt-shift-w: move-node-to-workspace W'
+  - 'alt-shift-e: move-node-to-workspace E'
+  - 'alt-shift-i: move-node-to-workspace I'
+  - 'alt-e: workspace E'
+  - 'alt-shift-6: move-node-to-workspace 6'
+  - 'alt-o: workspace O'
+  - 'alt-shift-h: move left'
+  - 'alt-shift-q: move-node-to-workspace Q'
+  - 'alt-y: workspace Y'
+  - 'alt-shift-y: move-node-to-workspace Y'
+  - 'alt-shift-8: move-node-to-workspace 8'
+  - 'alt-k: focus up'
+  - 'alt-n: move-workspace-to-monitor next'
+  - 'alt-shift-z: move-node-to-workspace Z'
+  - 'alt-shift-1: move-node-to-workspace 1'
+  - 'alt-5: workspace 5'
+  - 'alt-shift-x: move-node-to-workspace X'
+  - 'alt-b: workspace B'
+  - 'alt-z: workspace Z'
+  - 'alt-7: workspace 7'
+  - 'alt-shift-v: move-node-to-workspace V'
+  - 'alt-i: workspace I'
+  - 'alt-v: workspace V'
+  - 'alt-shift-f: move-node-to-workspace F'
+  - 'alt-q: workspace Q'
+  - 'alt-shift-3: move-node-to-workspace 3'
+  - 'alt-shift-9: move-node-to-workspace 9'
+  - 'alt-r: workspace R'
+  - 'alt-p: move-workspace-to-monitor prev'
+  - 'alt-shift-s: move-node-to-workspace S'
+  - 'alt-tab: workspace-back-and-forth'
+  - 'alt-j: focus down'
+  - 'alt-shift-semicolon: mode service'
+  - 'alt-9: workspace 9'
+  - 'alt-shift-equal: resize smart +50'
+  - 'alt-g: workspace G'
+  - 'alt-shift-a: move-node-to-workspace A'
+  - 'alt-f: workspace F'
+  - 'alt-c: workspace C'
+  - 'alt-comma: layout accordion horizontal vertical'
+  - 'alt-shift-j: move down'
+  - 'alt-d: workspace D'
+  - 'alt-shift-r: move-node-to-workspace R'
+  - 'alt-shift-7: move-node-to-workspace 7'
+  - 'alt-3: workspace 3'
+  - 'alt-x: workspace X'
+  - 'alt-shift-2: move-node-to-workspace 2'
+  - 'alt-shift-5: move-node-to-workspace 5'
+  - 'alt-shift-g: move-node-to-workspace G'
+  - 'alt-h: focus left'
+  - 'alt-t: workspace T'
+  - 'alt-2: workspace 2'
+  - 'alt-shift-l: move right'
+  - 'alt-shift-t: move-node-to-workspace T'
+  - 'alt-shift-b: move-node-to-workspace B'
+  - 'alt-shift-4: move-node-to-workspace 4'
+  - 'alt-6: workspace 6'
+  - 'alt-a: workspace A'
+  - 'alt-shift-d: move-node-to-workspace D'
+  - 'alt-s: workspace S'
+  - 'alt-shift-c: move-node-to-workspace C'
+  - 'alt-slash: layout tiles horizontal vertical'
+  - 'alt-1: workspace 1'
+  - 'alt-8: workspace 8'
+  - 'alt-shift-minus: resize smart -50'
+  - 'alt-u: workspace U'
+  - 'alt-shift-o: move-node-to-workspace O'
+  - 'alt-shift-k: move up'
+  - 'alt-l: focus right'
+  aerospace-service:
+  - 'r: flatten-workspace-tree; mode main'
+  - 'f: layout floating tiling; mode main'
+  - 'up: volume up'
+  - 'esc: reload-config; mode main'
+  - 'alt-shift-k: join-with up; mode main'
+  - 'alt-shift-h: join-with left; mode main'
+  - 'down: volume down'
+  - 'alt-shift-l: join-with right; mode main'
+  - 'backspace: close-all-windows-but-current; mode main'
+  - 'shift-down: volume set 0; mode main'
+  - 'alt-shift-j: join-with down; mode main'
+  tmux:
+  - 'C-Space C-Down: Resize the pane down'
+  - 'C-Space f: Search for a pane'
+  - 'C-Space w: Choose a window from a list'
+  - 'C-Space PPage: Enter copy mode and scroll up'
+  - 'C-Space r: Redraw the current client'
+  - 'C-Space s: Choose a session from a list'
+  - 'C-Space ): Switch to next client'
+  - 'C-Space 3: Select window 3'
+  - 'C-Space p: Select the previous window'
+  - 'C-Space S-Right: Move the visible part of the window right'
+  - 'C-Space 7: Select window 7'
+  - 'C-Space ?: List key bindings'
+  - 'C-Space n: Select the next window'
+  - 'C-Space Right: Select the pane to the right of the active pane'
+  - 'C-Space M-Up: Resize the pane up by 5'
+  - 'C-Space /: Describe key binding'
+  - 'C-Space 1: Select window 1'
+  - 'C-Space [: Enter copy mode'
+  - 'C-Space S-Left: Move the visible part of the window left'
+  - 'C-Space '': Prompt for window index to select'
+  - 'C-Space 5: Select window 5'
+  - 'C-Space S-Down: Move the visible part of the window down'
+  - 'C-Space z: Zoom the active pane'
+  - 'C-Space Left: Select the pane to the left of the active pane'
+  - 'C-Space M-1: Set the even-horizontal layout'
+  - 'C-Space M-p: Select the previous window with an alert'
+  - 'C-Space C-o: Rotate through the panes'
+  - 'C-Space -: Delete the most recent paste buffer'
+  - 'C-Space E: Spread panes out evenly'
+  - 'C-Space d: Detach the current client'
+  - 'C-Space C-Right: Resize the pane right'
+  - 'C-Space C-Up: Resize the pane up'
+  - 'C-Space Space: Select next layout'
+  - 'C-Space 8: Select window 8'
+  - 'C-Space M-n: Select the next window with an alert'
+  - 'C-Space L: Switch to the last client'
+  - 'C-Space o: Select the next pane'
+  - 'C-Space ~: Show messages'
+  - 'C-Space M-Left: Resize the pane left by 5'
+  - 'C-Space S-Up: Move the visible part of the window up'
+  - 'C-Space 0: Select window 0'
+  - 'C-Space m: Toggle the marked pane'
+  - 'C-Space M-4: Set the main-vertical layout'
+  - 'C-Space ]: Paste the most recent paste buffer'
+  - 'C-Space x: Kill the active pane'
+  - 'C-Space }: Swap the active pane with the pane below'
+  - 'C-Space M-6: Set the main-horizontal-mirrored layout'
+  - 'C-Space (: Switch to previous client'
+  - 'C-Space .: Move the current window'
+  - 'C-Space 2: Select window 2'
+  - 'C-Space M-7: Set the main-vertical-mirrored layout'
+  - 'C-Space M-Down: Resize the pane down by 5'
+  - 'C-Space $: Rename current session'
+  - 'C-Space &: Kill current window'
+  - 'C-Space M-3: Set the main-horizontal layout'
+  - 'C-Space :: Prompt for a command'
+  - 'C-Space M: Clear the marked pane'
+  - 'C-Space Up: Select the pane above the active pane'
+  - 'C-Space q: Display pane numbers'
+  - 'C-Space t: Show a clock'
+  - 'C-Space DC: Reset so the visible part of the window follows the cursor'
+  - 'C-Space C-Left: Resize the pane left'
+  - 'C-Space #: List all paste buffers'
+  - 'C-Space 6: Select window 6'
+  - 'C-Space C: Customize options'
+  - 'C-Space 9: Select window 9'
+  - 'C-Space ;: Move to the previously active pane'
+  - 'C-Space i: Display window information'
+  - 'C-Space M-5: Select the tiled layout'
+  - 'C-Space M-o: Rotate through the panes in reverse'
+  - 'C-Space C-z: Suspend the current client'
+  - 'C-Space ,: Rename current window'
+  - 'C-Space 4: Select window 4'
+  - 'C-Space =: Choose a paste buffer from a list'
+  - 'C-Space Down: Select the pane below the active pane'
+  - 'C-Space M-2: Set the even-vertical layout'
+  - 'C-Space M-Right: Resize the pane right by 5'
+  - 'C-Space !: Break pane to a new window'
+  - 'C-Space D: Choose and detach a client from a list'
+  - 'C-Space {: Swap the active pane with the pane above'
+height: 2160
 layout:
   frame_padding_x: 50
-  frame_padding_y: 20
-frame_style:
-  stroke: 1.0
-  title_font-size: 32.0
-  content_font-size: 15.0
-  title_padding: 10.0
-  content_padding: 10.0
-frames:
-  Vim0:
-    - vim 1 dog
-    - here's another one 
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-  Vim 1:
-    - vim 1 dog
-    - here's another one 
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-  Vim 2:
-    - vim 1 dog
-    - here's another one 
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-  Vim3:
-    - vim 1 dog
-    - here's another one 
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-  Vim6:
-    - vim 1 dog
-    - here's another one 
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - aaaaaaaaaaaaaaaone more for good measureone more for good measure
-  Vim5:
-    - vim 1 dog
-    - here's another one 
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-  Vim4:
-    - vim 1 dog
-    - here's another one 
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
-    - one more for good measure
+  frame_padding_y: 60
+width: 3840

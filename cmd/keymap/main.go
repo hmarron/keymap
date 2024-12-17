@@ -5,6 +5,7 @@ import (
 	"image/color"
 	"strconv"
 	"strings"
+	"time"
 
 	packer "github.com/InfinityTools/go-binpack2d"
 	"github.com/fogleman/gg"
@@ -93,14 +94,14 @@ func main() {
 		w, h := frame.GetCalculatedDimensions(dc)
 		rect, ok := p.Insert(int(w), int(h), packer.RULE_BEST_LONG_SIDE_FIT)
 		if !ok {
-			panic("Failed to pack")
+			panic("Failed to pack " + title)
 		}
 		frame.Draw(dc, float64(rect.X), float64(rect.Y))
 	}
 
 	// Save the file
-	// filename := fmt.Sprintf("%s.png", time.Now().Format("2006-01-02_15-04-05"))
-	filename := fmt.Sprintf("output.png")
+	filename := fmt.Sprintf("%s.png", time.Now().Format("2006-01-02_15-04-05"))
+	// filename := fmt.Sprintf("output.png")
 	dc.SavePNG(filename)
 	fmt.Println(filename)
 }
