@@ -96,7 +96,11 @@ func main() {
 		if !ok {
 			panic("Failed to pack " + title)
 		}
-		frame.Draw(dc, float64(rect.X), float64(rect.Y))
+		if viper.GetBool("debug") {
+			frame.DebugDraw(dc, float64(rect.X), float64(rect.Y))
+		} else {
+			frame.Draw(dc, float64(rect.X), float64(rect.Y))
+		}
 	}
 
 	// Save the file
